@@ -1,6 +1,6 @@
 /* Strictly Come Crawling — service worker
    Bump CACHE when you change any file so phones pick up the new version. */
-const CACHE = "scc-v1";
+const CACHE = "scc-v2";
 const ASSETS = [
   "./",
   "./index.html",

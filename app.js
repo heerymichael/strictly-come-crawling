@@ -254,6 +254,9 @@ function openNeck(n) {
   ["A", "B"].forEach(g => {
     const box = body.querySelector("#neck-checks-" + g);
     groups[g].forEach(e => {
+      const wrap = document.createElement("div");
+      wrap.className = "ex";
+      if (e.img) wrap.innerHTML = `<img class="fig" src="img/${e.img}.jpg" alt="" loading="lazy">`;
       const el = document.createElement("div");
       el.className = "check" + (checks[e.id] ? " on" : "");
       el.innerHTML = `<div class="box"></div><div class="lbl"><b>${e.id}</b>${esc(e.name)}</div><div class="reps">${esc(e.reps)}</div>`;
@@ -262,7 +265,8 @@ function openNeck(n) {
         state.neck.checks[n] = checks; save();
         el.classList.toggle("on", !!checks[e.id]);
       });
-      box.appendChild(el);
+      wrap.appendChild(el);
+      box.appendChild(wrap);
     });
   });
   const c = body.querySelector("#neck-complete");
@@ -315,6 +319,7 @@ function openCrawl(n) {
     <div class="kicker">Crawlidays · Day ${n} of ${CRAWL_TOTAL}</div>
     <h2>${esc(d.title)}</h2>
     ${done ? `<p class="pill ok" style="margin-bottom:8px">Completed ${niceDate(done.date)} · ${done.minutes} min${done.level ? " · Level " + done.level : ""}</p>` : ""}
+    ${d.img ? `<img class="fig hero-fig" src="img/${d.img}.jpg" alt="" loading="lazy">` : ""}
     <p class="muted small">${esc(d.note)}</p>
 
     <h2 class="section">Warm-up</h2>
@@ -344,7 +349,7 @@ function openCrawl(n) {
   CRAWL.warmup.forEach(w => {
     const el = document.createElement("div");
     el.className = "check" + (checks[w.id] ? " on" : "");
-    el.innerHTML = `<div class="box"></div><div class="lbl">${esc(w.name)}</div><div class="reps">${esc(w.reps)}</div>`;
+    el.innerHTML = `<div class="box"></div>${w.img ? `<img class="thumb" src="img/${w.img}.jpg" alt="" loading="lazy">` : ""}<div class="lbl">${esc(w.name)}</div><div class="reps wrap">${esc(w.reps)}</div>`;
     el.addEventListener("click", () => {
       checks[w.id] = !checks[w.id]; state.crawl.checks[n] = checks; save();
       el.classList.toggle("on", !!checks[w.id]);
